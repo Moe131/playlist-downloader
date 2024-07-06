@@ -36,6 +36,14 @@ def get_token():
 def get_auth_header(token):
     return {"Authorization" : "Bearer " + token}
 
+def get_playlist(playlist_id):
+    """ Gets the song names in a playlist """
+    url = f"https://api.spotify.com/v1/playlists/{playlist_id}/tracks"
+    token = get_token()
+    header = get_auth_header(token)
+    result = requests.get(url, headers=header)
+    json_result = json.loads(result.content)
+    return json_result["tracks"]["items"]
 
 def download_song(songname):
     """ Uses selenium to search a song in Youtube and
@@ -57,8 +65,11 @@ def download_song(songname):
 
 def main():
     """ Runs the main script"""
+    playlist = get_playlist("2bE0EkxJLOXAMw916ejsOH?si=kCqn5zLbSKaYvZyN-hGIgQ&pi=u-cAfKHu1lRQCr&nd=1&dlsi=48a7505b25ec48f1")
     songs = []
-
+    for song in playlist:
+        songs.append((song["track"]["name"]+ " " + song["track"]["artists"][0]["name"]) )
+    print(len(songs))
     for song in songs :
         download_song(song)
 
