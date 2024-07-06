@@ -12,9 +12,6 @@ load_dotenv()
 client_id = os.getenv("CLIENT_ID")
 client_secret = os.getenv("CLIENT_SECRET")
 
-service = Service(executable_path="./chromedriver")
-driver = webdriver.Chrome(service=service)
-
 SAVE_PATH = "songs"
 
 
@@ -45,7 +42,7 @@ def get_playlist(playlist_id):
     json_result = json.loads(result.content)
     return json_result["tracks"]["items"]
 
-def download_song(songname):
+def download_song(driver ,songname):
     """ Uses selenium to search a song in Youtube and
       downloads it in the SAVE_PATH"""
     # Open Youtube search for a song
@@ -65,14 +62,18 @@ def download_song(songname):
 
 def main():
     """ Runs the main script"""
-    playlist = get_playlist("2bE0EkxJLOXAMw916ejsOH?si=kCqn5zLbSKaYvZyN-hGIgQ&pi=u-cAfKHu1lRQCr&nd=1&dlsi=48a7505b25ec48f1")
+    # My list id : 2bE0EkxJLOXAMw916ejsOH?si=kCqn5zLbSKaYvZyN-hGIgQ&pi=u-cAfKHu1lRQCr&nd=1&dlsi=48a7505b25ec48f1
+    playlist_id = input ("Enter your playlist id : ")
+    playlist = get_playlist(playlist_id)
     songs = []
     for song in playlist:
         songs.append((song["track"]["name"]+ " " + song["track"]["artists"][0]["name"]) )
-    print(len(songs))
-    for song in songs :
-        download_song(song)
 
+    # Set up Chromedriver to download pages from Youtube
+    service = Service(executable_path="./chromedriver")
+    driver = webdriver.Chrome(service=service)
+    for song in songs :
+        download_song(driver,song)
     # Quit driver
     driver.quit()
 
