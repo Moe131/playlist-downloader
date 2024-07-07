@@ -73,9 +73,10 @@ def get_directory():
     path_label.config(text=SAVE_PATH)
 
 def download_playlist():
-    global playlist_id_input, total_songs
-    # My list id : 2bE0EkxJLOXAMw916ejsOH?si=kCqn5zLbSKaYvZyN-hGIgQ&pi=u-cAfKHu1lRQCr&nd=1&dlsi=48a7505b25ec48f1
-    playlist = get_playlist(playlist_id_input.get())
+    global total_songs
+    # My playlist url :https://open.spotify.com/playlist/2bE0EkxJLOXAMw916ejsOH?si=kCqn5zLbSKaYvZyN-hGIgQ&pi=u-cAfKHu1lRQCr&nd=1&dlsi=48a7505b25ec48f1
+    playlist_id = playlist_input.get().split("/")[-1]
+    playlist = get_playlist(playlist_id)
     songs = []
     for song in playlist:
         songs.append((song["track"]["name"]+ " " + song["track"]["artists"][0]["name"]) )
@@ -95,7 +96,7 @@ def download_playlist():
 
 def main():
     """ Runs the main script"""
-    global path_label, playlist_id_input, progress_bar, progress_var, progress_label
+    global path_label, playlist_input, progress_bar, progress_var, progress_label
 
     window = Tk()
     window.title("Playlist Downloader")
@@ -105,9 +106,9 @@ def main():
     frm = Frame(window, relief=RIDGE, borderwidth=2)
     frm.place(relx=0.5, rely=0.5, anchor=CENTER)
 
-    Label(frm, text="Enter your Spotify playlist ID:", font=("Helvetica", 14)).grid(row=0, column=0, pady=10, padx=10)
-    playlist_id_input = Entry(frm, font=("Helvetica", 12), width=40)
-    playlist_id_input.grid(row=1, column=0, pady=10, padx=10)
+    Label(frm, text="Enter your Spotify playlist url:", font=("Helvetica", 14)).grid(row=0, column=0, pady=10, padx=10)
+    playlist_input = Entry(frm, font=("Helvetica", 12), width=40)
+    playlist_input.grid(row=1, column=0, pady=10, padx=10)
 
     Label(frm, text="Select a folder to save songs:", font=("Helvetica", 14)).grid(row=2, column=0, pady=10, padx=10)
     path_label = Label(frm, text="", font=("Helvetica", 12))
