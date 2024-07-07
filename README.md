@@ -1,7 +1,7 @@
 
 # Spotify Playlist Song Downloader
 
-This Python script downloads songs from your Spotify playlist using Selenium for web automation and the PyTube library for downloading YouTube videos. It interacts with the Spotify API to retrieve playlist tracks and uses YouTube to find and download the corresponding songs.
+This application allows you to download songs from a Spotify playlist by searching and downloading them from YouTube. It uses the Spotify API to fetch the playlist details and Selenium for navigating YouTube to download the songs using `pytube`.
 
 ![Screen Shot 2024-07-07 at 01 07 30](https://github.com/Moe131/playlist-downloader/assets/65834335/3631cd60-918f-47e1-a9a6-243c483b1163)
 
@@ -15,38 +15,50 @@ Before running the script, ensure you have the following installed:
 - ChromeDriver (compatible with your version of Google Chrome)
 - Required Python libraries: `selenium`, `pytube3`, `python-dotenv`, `requests` 
 
-You can install the required Python libraries using pip:
 
-```bash
-pip install selenium pytube3 python-dotenv requests
-```
+## Installation
 
-## Setup
-
-1. **Spotify Developer Account**: Create a Spotify Developer account and register an application to get your `CLIENT_ID` and `CLIENT_SECRET`.
-
-2. **Environment Variables**: Create a `.env` file in the root directory of your project and add your Spotify API credentials:
+1. Clone the repository:
 
     ```
-    CLIENT_ID=your_spotify_client_id
-    CLIENT_SECRET=your_spotify_client_secret
+    git clone https://github.com/moe131/playlist-downloader.git
+    cd playlist-downloader
     ```
 
-3. **ChromeDriver**: Download the ChromeDriver executable and place it in your project directory or ensure it's in your system PATH. Update the `executable_path` in the script if necessary.
+2. Install the required Python packages:
+
+    ```
+    pip install -r requirements.txt
+    ```
+
+3. Set up your Spotify API credentials:
+   
+    - Create a `.env` file in the root directory of your project.
+    - Add your Spotify API credentials to the `.env` file:
+
+      ```
+      CLIENT_ID=your_spotify_client_id
+      CLIENT_SECRET=your_spotify_client_secret
+      ```
+
+4. Download and set up ChromeDriver:
+   
+    - Download ChromeDriver from [here](https://sites.google.com/a/chromium.org/chromedriver/downloads).
+    - Place the ChromeDriver executable in the project directory or set its path in the code.
+
 
 ## Usage
 
-1. Clone or download the repository to your local machine.
-
-2. Place the `.env` file in the root directory of the project.
-
-3. Open a terminal and navigate to the project directory.
-
-4. Run the script:
+1. Run the application:
 
     ```
     python downloader.py
     ```
+
+2. In the GUI:
+    - Enter the URL of the Spotify playlist you want to download.
+    - Click "Browse" to select the directory where you want to save the downloaded songs.
+    - Click "Start Download" to begin downloading songs.
 
 
 ### Note

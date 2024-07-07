@@ -6,7 +6,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from pytube import YouTube
 from dotenv import load_dotenv
-import os , time , requests , base64 , json
+import os , requests , base64 , json
 from tkinter import *
 from tkinter import filedialog  , ttk
 
@@ -16,7 +16,7 @@ load_dotenv()
 client_id = os.getenv("CLIENT_ID")
 client_secret = os.getenv("CLIENT_SECRET")
 
-SAVE_PATH = "songs"
+SAVE_PATH = ""
 
 def get_token():
     """ Gets Spotfiy access token by making POST request"""
