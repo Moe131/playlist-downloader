@@ -13,7 +13,7 @@ Before running the script, ensure you have the following installed:
 - Python 3.x
 - Google Chrome
 - ChromeDriver (compatible with your version of Google Chrome)
-- Required Python libraries: `selenium`, `pytube3`, `python-dotenv`, `requests`
+- Required Python libraries: `selenium`, `pytube3`, `python-dotenv`, `requests` 
 
 You can install the required Python libraries using pip:
 
@@ -45,28 +45,9 @@ pip install selenium pytube3 python-dotenv requests
 4. Run the script:
 
     ```
-    python main.py
+    python downloader.py
     ```
 
-## Script Explanation
-
-### Imports
-
-- `selenium` for web automation.
-- `pytube` for downloading YouTube videos.
-- `dotenv` for loading environment variables.
-- `requests`, `os`, `time`, `base64`, `json` for various tasks such as API requests and data handling.
-
-
-### Example Usage in Script
-
-Replace the placeholder playlist ID in the `main` function with your own Spotify playlist ID:
-
-```
-python main.py
-```
-
-Run the script, and it will download the songs to the specified `SAVE_PATH` directory.
 
 ### Note
 
