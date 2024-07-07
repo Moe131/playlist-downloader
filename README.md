@@ -3,6 +3,9 @@
 
 This Python script downloads songs from your Spotify playlist using Selenium for web automation and the PyTube library for downloading YouTube videos. It interacts with the Spotify API to retrieve playlist tracks and uses YouTube to find and download the corresponding songs.
 
+![Screen Shot 2024-07-06 at 17 31 17](https://github.com/Moe131/playlist-downloader/assets/65834335/848cd35a-f9c1-440a-89b8-22d085ab7385)
+
+
 ## Prerequisites
 
 Before running the script, ensure you have the following installed:
