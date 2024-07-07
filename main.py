@@ -87,8 +87,10 @@ def download_playlist():
     progress_label.config(text=f"Downloaded 0 of {total_songs} songs")
 
     # Set up Chromedriver to download pages from Youtube
+    options = webdriver.ChromeOptions()
+    options.add_argument("headless") # used to hide browser openning on screen
     service = Service(executable_path="./chromedriver")
-    driver = webdriver.Chrome(service=service)
+    driver = webdriver.Chrome(service=service , options=options)
     for song in songs :
         download_song(driver,song)
     # Quit driver
@@ -111,18 +113,18 @@ def main():
     playlist_input.grid(row=1, column=0, pady=10, padx=10)
 
     Label(frm, text="Select a folder to save songs:", font=("Helvetica", 14)).grid(row=2, column=0, pady=10, padx=10)
+    Button(frm, text="Browse", command=get_directory, font=("Helvetica", 12)).grid(row=3, column=0, pady=10, padx=10)
     path_label = Label(frm, text="", font=("Helvetica", 12))
-    path_label.grid(row=3, column=0, pady=10, padx=10)
+    path_label.grid(row=4, column=0, pady=10, padx=10)
 
-    Button(frm, text="Browse", command=get_directory, font=("Helvetica", 12)).grid(row=4, column=0, pady=10, padx=10, sticky=W)
-    Button(frm, text="Start Download", command=download_playlist, font=("Helvetica", 12)).grid(row=4, column=0, pady=10, padx=10, sticky=E)
+    Button(frm, text="Start Download", command=download_playlist, font=("Helvetica", 12)).grid(row=5, column=0, pady=10, padx=10)
 
     progress_var = IntVar()
     progress_bar = ttk.Progressbar(frm, orient=HORIZONTAL, length=400, mode='determinate', variable=progress_var)
-    progress_bar.grid(row=5, column=0, pady=20, padx=10)
+    progress_bar.grid(row=6, column=0, pady=20, padx=10)
     
     progress_label = Label(frm, text="", font=("Helvetica", 12))
-    progress_label.grid(row=6, column=0, pady=10, padx=10)
+    progress_label.grid(row=7, column=0, pady=10, padx=10)
 
     window.mainloop()
 
