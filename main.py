@@ -8,7 +8,7 @@ from pytube import YouTube
 from dotenv import load_dotenv
 import os , time , requests , base64 , json
 from tkinter import *
-from tkinter import filedialog 
+from tkinter import filedialog  , ttk
 
 
 
@@ -62,6 +62,10 @@ def download_song(driver ,songname):
         print(f'{songname} downloaded successfully!')
     except Exception as e: 
         print(f"Error downloading {songname}: {e}")
+    
+    progress_var.set(progress_var.get() + 1)
+    progress_bar.update()
+    progress_label.config(text=f"Downloaded {progress_var.get()} of {total_songs} songs")
 
 def get_directory():
     global SAVE_PATH
@@ -69,12 +73,17 @@ def get_directory():
     path_label.config(text=SAVE_PATH)
 
 def download_playlist():
-    global playlist_id_input
+    global playlist_id_input, total_songs
     # My list id : 2bE0EkxJLOXAMw916ejsOH?si=kCqn5zLbSKaYvZyN-hGIgQ&pi=u-cAfKHu1lRQCr&nd=1&dlsi=48a7505b25ec48f1
     playlist = get_playlist(playlist_id_input.get())
     songs = []
     for song in playlist:
         songs.append((song["track"]["name"]+ " " + song["track"]["artists"][0]["name"]) )
+    
+    total_songs = len(songs)
+    progress_var.set(0)
+    progress_bar["maximum"] = total_songs
+    progress_label.config(text=f"Downloaded 0 of {total_songs} songs")
 
     # Set up Chromedriver to download pages from Youtube
     service = Service(executable_path="./chromedriver")
@@ -86,10 +95,7 @@ def download_playlist():
 
 def main():
     """ Runs the main script"""
-    global path_label, playlist_id_input
-
-    """ Runs the main script"""
-    global path_label, playlist_id_input
+    global path_label, playlist_id_input, progress_bar, progress_var, progress_label
 
     window = Tk()
     window.title("Playlist Downloader")
@@ -109,6 +115,13 @@ def main():
 
     Button(frm, text="Browse", command=get_directory, font=("Helvetica", 12)).grid(row=4, column=0, pady=10, padx=10, sticky=W)
     Button(frm, text="Start Download", command=download_playlist, font=("Helvetica", 12)).grid(row=4, column=0, pady=10, padx=10, sticky=E)
+
+    progress_var = IntVar()
+    progress_bar = ttk.Progressbar(frm, orient=HORIZONTAL, length=400, mode='determinate', variable=progress_var)
+    progress_bar.grid(row=5, column=0, pady=20, padx=10)
+    
+    progress_label = Label(frm, text="", font=("Helvetica", 12))
+    progress_label.grid(row=6, column=0, pady=10, padx=10)
 
     window.mainloop()
 
