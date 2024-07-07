@@ -105,28 +105,38 @@ def main():
     window.geometry("600x350")
     window.resizable(False, False)  # Disable window resizing
 
-    frm = Frame(window, relief=RIDGE, borderwidth=2)
-    frm.place(relx=0.5, rely=0.5, anchor=CENTER)
+    frm = Frame(window, relief=RIDGE, borderwidth=2, padx=20, pady=20)
+    frm.pack(expand=True)
 
-    Label(frm, text="Enter your Spotify playlist url:", font=("Helvetica", 14)).grid(row=0, column=0, pady=10, padx=10)
-    playlist_input = Entry(frm, font=("Helvetica", 12), width=40)
-    playlist_input.grid(row=1, column=0, pady=10, padx=10)
+    # Playlist URL input
+    input_frame = Frame(frm)
+    input_frame.pack(pady=10)
+    Label(input_frame, text="Download your Spotify playlists ", font=("Helvetica", 14)).pack(padx=10,pady=10)
+    Label(input_frame, text="Playlist URL:", font=("Helvetica", 14)).pack(side=LEFT, padx=10)
+    playlist_input = Entry(input_frame,font=("Helvetica", 12), width=45)
+    playlist_input.pack(side=LEFT, padx=10)
 
-    Label(frm, text="Select a folder to save songs:", font=("Helvetica", 14)).grid(row=2, column=0, pady=10, padx=10)
-    Button(frm, text="Browse", command=get_directory, font=("Helvetica", 12)).grid(row=3, column=0, pady=10, padx=10)
-    path_label = Label(frm, text="", font=("Helvetica", 12))
-    path_label.grid(row=4, column=0, pady=10, padx=10)
+    # Browse button and path label
+    browse_frame = Frame(frm)
+    browse_frame.pack(pady=10)
+    Label(browse_frame, text="Save folder:", font=("Helvetica", 14)).pack(side=LEFT, padx=10)
+    path_label = Label(browse_frame, text="",width=33, font=("Helvetica", 12))
+    path_label.pack(side=LEFT,pady= 10, padx=10)
+    Button(browse_frame, text="Browse", command=get_directory, font=("Helvetica", 12)).pack(side=LEFT, padx=10)
 
-    Button(frm, text="Start Download", command=download_playlist, font=("Helvetica", 12)).grid(row=5, column=0, pady=10, padx=10)
+    # Start Download button
+    Button(frm, text="Start Download", command=download_playlist, font=("Helvetica", 12)).pack(pady=10)
 
+    # Progress bar and label
     progress_var = IntVar()
     progress_bar = ttk.Progressbar(frm, orient=HORIZONTAL, length=400, mode='determinate', variable=progress_var)
-    progress_bar.grid(row=6, column=0, pady=20, padx=10)
+    progress_bar.pack(pady=20)
     
     progress_label = Label(frm, text="", font=("Helvetica", 12))
-    progress_label.grid(row=7, column=0, pady=10, padx=10)
+    progress_label.pack(pady=10)
 
     window.mainloop()
+
 
 
 if __name__ == "__main__":
